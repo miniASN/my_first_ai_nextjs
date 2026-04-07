@@ -2,22 +2,25 @@
 
 import React, { useState, useTransition } from "react";
 import { addTransaction } from "@/app/actions";
+import { useTranslations } from "next-intl";
+import { CATEGORY_KEYS } from "@/lib/categories";
 
 export default function AddRecordModalClient() {
+  const t = useTranslations("home");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState<"expense" | "income">("expense");
   const [isPending, startTransition] = useTransition();
 
-  async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     formData.append("type", type);
 
     startTransition(async () => {
-      const res = await addTransaction(formData);
-      if (res?.success) {
+      const result = await addTransaction(formData);
+      if (result?.success) {
         setIsModalOpen(false);
-        (e.target as HTMLFormElement).reset();
+        event.currentTarget.reset();
       }
     });
   }
@@ -29,73 +32,73 @@ export default function AddRecordModalClient() {
         style={{ padding: "8px 16px", fontSize: "14px", boxShadow: "none" }}
         onClick={() => setIsModalOpen(true)}
       >
-        + 记一笔
+        {t("addRecord")}
       </button>
 
       {isModalOpen && (
         <div className="modal-overlay open" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3 className="title" style={{ fontSize: "20px", marginBottom: "24px" }}>记录新的一笔</h3>
+          <div className="modal-content" onClick={(event) => event.stopPropagation()}>
+            <h3 className="title" style={{ fontSize: "20px", marginBottom: "24px" }}>
+              {t("recordNew")}
+            </h3>
 
             <div className="type-selector">
               <div
                 className={`type-btn expense ${type === "expense" ? "active" : ""}`}
                 onClick={() => setType("expense")}
               >
-                支出
+                {t("expense")}
               </div>
               <div
                 className={`type-btn income ${type === "income" ? "active" : ""}`}
                 onClick={() => setType("income")}
               >
-                收入
+                {t("income")}
               </div>
             </div>
 
             <form onSubmit={handleFormSubmit}>
               <div className="form-group">
-                <label className="form-label">金额</label>
+                <label className="form-label">{t("amount")}</label>
                 <input
                   type="number"
                   step="0.01"
                   name="amount"
                   required
                   className="form-input"
-                  placeholder="输入金额, 例如 100.00"
+                  placeholder={t("amountPlaceholder")}
                   autoFocus
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">类别</label>
-                <select name="category" required className="form-select">
-                  <option style={{ color: "black" }} value="餐饮美食">餐饮美食</option>
-                  <option style={{ color: "black" }} value="数码电子">数码电子</option>
-                  <option style={{ color: "black" }} value="房租水电">房租水电</option>
-                  <option style={{ color: "black" }} value="交通出行">交通出行</option>
-                  <option style={{ color: "black" }} value="副业收入">副业收入</option>
-                  <option style={{ color: "black" }} value="工资收入">工资收入</option>
-                  <option style={{ color: "black" }} value="其他">其他</option>
+                <label className="form-label">{t("category")}</label>
+                <select name="category" required className="form-select" defaultValue="food">
+                  {CATEGORY_KEYS.map((category) => (
+                    <option key={category} style={{ color: "black" }} value={category}>
+                      {t(`categories.${category}`)}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="form-group">
-                <label className="form-label">备注明细</label>
+                <label className="form-label">{t("note")}</label>
                 <input
                   type="text"
                   name="title"
                   required
                   className="form-input"
-                  placeholder="购买了什么？例如: 星巴克咖啡"
+                  placeholder={t("notePlaceholder")}
                 />
               </div>
 
               <div className="form-actions">
                 <button type="button" className="btn-secondary" onClick={() => setIsModalOpen(false)}>
-                  取消
+                  {t("cancel")}
                 </button>
                 <button type="submit" className="btn-primary" disabled={isPending}>
-                  {isPending ? "保存中..." : "保存记录"}
+                  {isPending ? t("saving") : t("saveRecord")}
                 </button>
               </div>
             </form>

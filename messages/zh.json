@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "AstroBook | 高???系?",
+    "description": "支持多?言的全????用"
+  },
+  "language": {
+    "label": "?言"
+  },
+  "home": {
+    "brand": "AstroBook",
+    "monthlyBalance": "本月?余",
+    "income": "收入",
+    "expense": "支出",
+    "monthlyExpense": "本月支出",
+    "monthlyIncome": "本月收入",
+    "quickActions": "快捷操作",
+    "monthlyBudget": "月度?算",
+    "categoryManagement": "分?管理",
+    "recentDetails": "最近明?",
+    "error": "??",
+    "noRecords": "?没有任何??，点?右上角按??始???。",
+    "today": "今天",
+    "yesterday": "昨天",
+    "addRecord": "+ 新增",
+    "recordNew": "新增??",
+    "cancel": "取消",
+    "saving": "保存中...",
+    "saveRecord": "保存??",
+    "amount": "金?",
+    "amountPlaceholder": "?入金?，例如 100.00",
+    "category": "分?",
+    "note": "?注",
+    "notePlaceholder": "???花在了什?地方？",
+    "delete": "?除",
+    "deleteConfirm": "?定要?除?条???？",
+    "categories": {
+      "food": "餐?美食",
+      "digital": "数??子",
+      "rent": "房租水?",
+      "transport": "交通出行",
+      "sideIncome": "副?收入",
+      "salary": "工?",
+      "other": "其他"
+    }
+  }
+}

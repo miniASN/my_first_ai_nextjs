@@ -1,7 +1,9 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { deleteTransaction } from "@/app/actions";
+import { useTranslations } from "next-intl";
+import { normalizeCategory } from "@/lib/categories";
 
 interface Transaction {
   id: string;
@@ -15,27 +17,30 @@ interface Transaction {
 interface TransactionListProps {
   transactions: Transaction[];
   formatDate: (date: Date) => string;
+  locale: string;
 }
 
-function formatCurrency(amount: number, type: string): string {
-  const formatted = new Intl.NumberFormat("zh-CN", {
+function formatAmount(amount: number, type: string, locale: string): string {
+  const numeric = new Intl.NumberFormat(locale, {
     minimumFractionDigits: 2,
   }).format(amount);
 
-  return type === "income" ? `+¥${formatted}` : `-¥${formatted}`;
+  return type === "income" ? `+¥${numeric}` : `-¥${numeric}`;
 }
 
-export default function TransactionList({ transactions, formatDate }: TransactionListProps) {
+export default function TransactionList({ transactions, formatDate, locale }: TransactionListProps) {
+  const t = useTranslations("home");
+
   async function handleDelete(id: string) {
-    if (confirm("确定要删除这条记录吗？")) {
+    if (confirm(t("deleteConfirm"))) {
       await deleteTransaction(id);
     }
   }
 
   return (
     <div className="transaction-list">
-      {transactions.map((t) => (
-        <div key={t.id} className="transaction-item">
+      {transactions.map((transaction) => (
+        <div key={transaction.id} className="transaction-item">
           <div style={{ display: "flex", gap: "16px", alignItems: "center", flex: 1 }}>
             <div
               style={{
@@ -50,21 +55,21 @@ export default function TransactionList({ transactions, formatDate }: Transactio
                 border: "1px solid var(--border-glass)",
               }}
             >
-              {t.type === "expense" ? "💸" : "💰"}
+              {transaction.type === "expense" ? "−" : "+"}
             </div>
             <div className="transaction-info">
-              <h4 style={{ fontSize: "16px", marginBottom: "4px" }}>{t.title}</h4>
+              <h4 style={{ fontSize: "16px", marginBottom: "4px" }}>{transaction.title}</h4>
               <p style={{ opacity: 0.8 }}>
-                {t.category} · {formatDate(new Date(t.date))}
+                {t(`categories.${normalizeCategory(transaction.category)}`)} · {formatDate(new Date(transaction.date))}
               </p>
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <div className={`amount ${t.type}`} style={{ fontSize: "18px" }}>
-              {formatCurrency(t.amount, t.type)}
+            <div className={`amount ${transaction.type}`} style={{ fontSize: "18px" }}>
+              {formatAmount(transaction.amount, transaction.type, locale)}
             </div>
             <button
-              onClick={() => handleDelete(t.id)}
+              onClick={() => handleDelete(transaction.id)}
               style={{
                 background: "none",
                 border: "none",
@@ -75,11 +80,16 @@ export default function TransactionList({ transactions, formatDate }: Transactio
                 opacity: 0.6,
                 transition: "opacity 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.6")}
-              title="删除"
+              onMouseEnter={(event) => {
+                event.currentTarget.style.opacity = "1";
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.opacity = "0.6";
+              }}
+              title={t("delete")}
+              aria-label={t("delete")}
             >
-              🗑️
+              ×
             </button>
           </div>
         </div>

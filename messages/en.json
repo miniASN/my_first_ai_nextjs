@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "AstroBook | Premium Accounting",
+    "description": "A multilingual full-stack finance tracker"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "home": {
+    "brand": "AstroBook",
+    "monthlyBalance": "Monthly Balance",
+    "income": "Income",
+    "expense": "Expense",
+    "monthlyExpense": "Monthly Expense",
+    "monthlyIncome": "Monthly Income",
+    "quickActions": "Quick Actions",
+    "monthlyBudget": "Monthly Budget",
+    "categoryManagement": "Category Management",
+    "recentDetails": "Recent Activity",
+    "error": "Error",
+    "noRecords": "No records yet. Click the button in the top right to start tracking.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "addRecord": "+ Add",
+    "recordNew": "New Record",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "saveRecord": "Save Record",
+    "amount": "Amount",
+    "amountPlaceholder": "Enter an amount, for example 100.00",
+    "category": "Category",
+    "note": "Note",
+    "notePlaceholder": "What was this for?",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this record?",
+    "categories": {
+      "food": "Food & Dining",
+      "digital": "Digital & Electronics",
+      "rent": "Rent & Utilities",
+      "transport": "Transportation",
+      "sideIncome": "Side Income",
+      "salary": "Salary",
+      "other": "Other"
+    }
+  }
+}
