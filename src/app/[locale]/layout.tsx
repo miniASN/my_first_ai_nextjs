@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: t("title"),
-    description: t("description"),
+    description: t("description")
   };
 }
 
@@ -32,10 +32,10 @@ export default async function LocaleLayout({ params, children }: Props) {
     notFound();
   }
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
       <div style={{ position: "fixed", top: "16px", right: "16px", zIndex: 1000 }}>
         <LanguageSwitcher />
       </div>
