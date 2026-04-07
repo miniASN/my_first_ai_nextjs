@@ -4,10 +4,6 @@ import pg from "pg";
 
 const databaseUrl = process.env.DATABASE_URL;
 
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL is not set");
-}
-
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
   pool: pg.Pool | undefined;
@@ -16,6 +12,9 @@ const globalForPrisma = globalThis as unknown as {
 // グローバルに単一のpgプールを作成
 function getPool(): pg.Pool {
   if (!globalForPrisma.pool) {
+    if (!databaseUrl) {
+      throw new Error("DATABASE_URL is not set");
+    }
     globalForPrisma.pool = new pg.Pool({
       connectionString: databaseUrl,
       max: 20,
@@ -26,9 +25,11 @@ function getPool(): pg.Pool {
   return globalForPrisma.pool;
 }
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  adapter: new PrismaPg(getPool()),
-});
+export const prisma = globalForPrisma.prisma ?? (databaseUrl
+  ? new PrismaClient({
+      adapter: new PrismaPg(getPool()),
+    })
+  : new PrismaClient());
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
