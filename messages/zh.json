@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "AstroBook | 高级记账系统",
-    "description": "支持多语言的全栈记账应用"
+    "title": "AstroBook | 高级记账应用",
+    "description": "一款支持多语言的全栈财务记录工具"
   },
   "language": {
     "label": "语言"
@@ -14,11 +14,11 @@
     "monthlyExpense": "本月支出",
     "monthlyIncome": "本月收入",
     "quickActions": "快捷操作",
-    "monthlyBudget": "月度预算",
+    "monthlyBudget": "本月预算",
     "categoryManagement": "分类管理",
     "recentDetails": "最近明细",
     "error": "错误",
-    "noRecords": "还没有任何记录，点击右上角按钮开始记账吧。",
+    "noRecords": "还没有记录，点击右上角按钮开始记账吧。",
     "today": "今天",
     "yesterday": "昨天",
     "addRecord": "+ 新增",
@@ -27,10 +27,10 @@
     "saving": "保存中...",
     "saveRecord": "保存记录",
     "amount": "金额",
-    "amountPlaceholder": "输入金额，例如 100.00",
+    "amountPlaceholder": "请输入金额，例如 100.00",
     "category": "分类",
     "note": "备注",
-    "notePlaceholder": "这笔钱花在了什么地方？",
+    "notePlaceholder": "这笔钱是做什么的？",
     "delete": "删除",
     "deleteConfirm": "确定要删除这条记录吗？",
     "categories": {

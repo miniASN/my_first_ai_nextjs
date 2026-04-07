@@ -22,9 +22,10 @@ interface TransactionListProps {
 function formatAmount(amount: number, type: string, locale: string): string {
   const numeric = new Intl.NumberFormat(locale, {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   }).format(amount);
 
-  return type === "income" ? `+¥${numeric}` : `-¥${numeric}`;
+  return type === "income" ? `+\u00a5${numeric}` : `-\u00a5${numeric}`;
 }
 
 export default function TransactionList({ transactions, locale }: TransactionListProps) {
@@ -54,12 +55,12 @@ export default function TransactionList({ transactions, locale }: TransactionLis
                 border: "1px solid var(--border-glass)"
               }}
             >
-              {transaction.type === "expense" ? "−" : "+"}
+              {transaction.type === "expense" ? "-" : "+"}
             </div>
             <div className="transaction-info">
               <h4 style={{ fontSize: "16px", marginBottom: "4px" }}>{transaction.title}</h4>
               <p style={{ opacity: 0.8 }}>
-                {t(`categories.${normalizeCategory(transaction.category)}`)} · {transaction.formattedDate}
+                {t(`categories.${normalizeCategory(transaction.category)}`)} {" \u00b7 "} {transaction.formattedDate}
               </p>
             </div>
           </div>
@@ -88,7 +89,7 @@ export default function TransactionList({ transactions, locale }: TransactionLis
               title={t("delete")}
               aria-label={t("delete")}
             >
-              ×
+              x
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "AstroBook | 高機能家計管理",
-    "description": "多言語対応のフルスタック家計簿アプリ"
+    "title": "AstroBook | 高機能家計簿",
+    "description": "多言語対応のフルスタック家計管理アプリ"
   },
   "language": {
     "label": "言語"
@@ -14,11 +14,11 @@
     "monthlyExpense": "今月の支出",
     "monthlyIncome": "今月の収入",
     "quickActions": "クイック操作",
-    "monthlyBudget": "月間予算",
+    "monthlyBudget": "今月の予算",
     "categoryManagement": "カテゴリ管理",
-    "recentDetails": "最近の明細",
+    "recentDetails": "最近の履歴",
     "error": "エラー",
-    "noRecords": "まだ記録がありません。右上のボタンから家計簿を始めましょう。",
+    "noRecords": "まだ記録がありません。右上のボタンから家計管理を始めましょう。",
     "today": "今日",
     "yesterday": "昨日",
     "addRecord": "+ 追加",

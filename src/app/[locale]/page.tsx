@@ -9,11 +9,12 @@ type HomeTranslations = {
 };
 
 function formatCurrency(amount: number, locale: string): string {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "CNY",
+  const numeric = new Intl.NumberFormat(locale, {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   }).format(amount);
+
+  return `\u00a5${numeric}`;
 }
 
 function formatDate(date: Date, t: HomeTranslations, locale: string): string {
@@ -24,7 +25,7 @@ function formatDate(date: Date, t: HomeTranslations, locale: string): string {
   const time = new Intl.DateTimeFormat(locale, {
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false,
+    hour12: false
   }).format(date);
 
   if (days === 0) {
@@ -40,7 +41,7 @@ function formatDate(date: Date, t: HomeTranslations, locale: string): string {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false,
+    hour12: false
   }).format(date);
 }
 
@@ -54,7 +55,7 @@ function toErrorMessage(error: unknown): string {
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations("home");
+  const t = await getTranslations({ locale, namespace: "home" });
 
   let transactions: Awaited<ReturnType<typeof prisma.transaction.findMany>> = [];
   let summary = { income: 0, expense: 0, balance: 0 };
@@ -63,7 +64,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   try {
     transactions = await prisma.transaction.findMany({
       orderBy: { date: "desc" },
-      take: 50,
+      take: 50
     });
 
     const now = new Date();
@@ -74,9 +75,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       where: {
         date: {
           gte: startOfMonth,
-          lte: endOfMonth,
-        },
-      },
+          lte: endOfMonth
+        }
+      }
     });
 
     const income = monthlyTransactions
@@ -114,7 +115,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="amount-large">{formatCurrency(summary.balance, locale)}</div>
           <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "16px" }}>
             {t("income")} <span style={{ color: "var(--success)", fontWeight: 500 }}>{formatCurrency(summary.income, locale)}</span>
-            {" · "}
+            {" \u00b7 "}
             {t("expense")} <span style={{ color: "var(--danger)", fontWeight: 500 }}>{formatCurrency(summary.expense, locale)}</span>
           </p>
         </div>
@@ -151,7 +152,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <TransactionList transactions={transactionItems} locale={locale} />
         ) : (
           <div style={{ textAlign: "center", padding: "48px 0", color: "var(--text-muted)" }}>
-            <div style={{ fontSize: "48px", marginBottom: "16px" }}>◎</div>
+            <div style={{ fontSize: "48px", marginBottom: "16px" }}>{"\u25ce"}</div>
             <p>{t("noRecords")}</p>
           </div>
         )}
