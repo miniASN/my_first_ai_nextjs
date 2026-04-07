@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout *)",
+      "Bash(taskkill *)",
+      "Bash(rmdir *)",
+      "Bash(set *)",
+      "Bash(%path%)",
+      "Bash(npm run *)",
+      "Bash(c:\\pleiades\\java2\\nodejs\\node.exe *)",
+      "Bash(dir *)",
+      "Bash(npm uninstall *)",
+      "Bash(npm install *)",
+      "Bash(npx *)",
+      "Bash(npm ls *)",
+      "Bash(npm *)",
+      "Bash(type *)",
+      "Bash(findstr *)",
+      "Bash(c:\\pleiades\\java2\\nodejs\\npx.cmd *)",
+      "Bash(del *)",
+      "Bash(cmd *)",
+      "Bash(c:\\pleiades\\java2\\nodejs\\npm.cmd *)",
+      "Bash(vercel *)",
+      "Bash(npm.cmd *)",
+      "Bash(c:\\pleiades\\java2\\git\\cmd\\git.exe *)"
+    ]
+  },
+  "$version": 3
+}
