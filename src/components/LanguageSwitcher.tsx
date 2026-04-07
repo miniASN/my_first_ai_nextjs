@@ -2,23 +2,33 @@
 
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "../../routing";
-import { locales } from "../../i18n";
+import { usePathname, useRouter } from "next/navigation";
+import { locales, type Locale } from "../../i18n";
 
-const languageLabels: Record<(typeof locales)[number], string> = {
+const languageLabels: Record<Locale, string> = {
   zh: "中文",
   ja: "日本語",
   en: "English"
 };
 
+function getLocalizedPathname(pathname: string, nextLocale: Locale): string {
+  const segments = pathname.split("/").filter(Boolean);
+  const [, ...rest] = segments;
+  const suffix = rest.length > 0 ? `/${rest.join("/")}` : "";
+  return `/${nextLocale}${suffix}`;
+}
+
 export default function LanguageSwitcher() {
   const t = useTranslations("language");
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
   const pathname = usePathname();
   const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    router.replace(pathname, { locale: event.target.value });
+    const nextLocale = event.target.value as Locale;
+    const nextPathname = getLocalizedPathname(pathname, nextLocale);
+    router.replace(nextPathname);
+    router.refresh();
   };
 
   return (
