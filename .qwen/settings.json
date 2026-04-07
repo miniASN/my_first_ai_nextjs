@@ -22,7 +22,8 @@
       "Bash(c:\\pleiades\\java2\\nodejs\\npm.cmd *)",
       "Bash(vercel *)",
       "Bash(npm.cmd *)",
-      "Bash(c:\\pleiades\\java2\\git\\cmd\\git.exe *)"
+      "Bash(c:\\pleiades\\java2\\git\\cmd\\git.exe *)",
+      "Bash(true)"
     ]
   },
   "$version": 3
