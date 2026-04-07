@@ -6,12 +6,15 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "zh";
 export const localePrefix = "always";
 
-export default getRequestConfig(async ({ locale }) => {
-  if (!locale || !locales.includes(locale as Locale)) {
+export default getRequestConfig(async ({ locale, requestLocale }) => {
+  const resolvedLocale = (locale ?? (await requestLocale) ?? defaultLocale) as Locale;
+
+  if (!locales.includes(resolvedLocale)) {
     notFound();
   }
 
   return {
-    messages: (await import(`./messages/${locale}.json`)).default,
+    locale: resolvedLocale,
+    messages: (await import(`./messages/${resolvedLocale}.json`)).default
   };
 });

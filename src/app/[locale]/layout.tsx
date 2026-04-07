@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { locales } from "@/i18n";
+import { locales } from "../../../i18n";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import "../globals.css";
 

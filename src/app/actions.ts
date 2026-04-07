@@ -1,8 +1,8 @@
-﻿"use server";
+"use server";
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { locales } from "@/i18n";
+import { locales } from "../../i18n";
 import { normalizeCategory } from "@/lib/categories";
 
 function revalidateHomeRoutes() {

@@ -2,13 +2,13 @@
 
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/routing";
-import { locales } from "@/i18n";
+import { usePathname, useRouter } from "../../routing";
+import { locales } from "../../i18n";
 
 const languageLabels: Record<(typeof locales)[number], string> = {
-  zh: "’†•¶",
-  ja: "“ú–{Œê",
-  en: "English",
+  zh: "ä¸­æ–‡",
+  ja: "æ—¥æœ¬èªž",
+  en: "English"
 };
 
 export default function LanguageSwitcher() {
@@ -31,7 +31,7 @@ export default function LanguageSwitcher() {
         border: "1px solid var(--border-glass)",
         borderRadius: "999px",
         padding: "8px 12px",
-        backdropFilter: "blur(12px)",
+        backdropFilter: "blur(12px)"
       }}
     >
       <span style={{ color: "var(--text-muted)", fontSize: "13px" }}>{t("label")}</span>
@@ -45,7 +45,7 @@ export default function LanguageSwitcher() {
           color: "var(--text-main)",
           fontSize: "14px",
           cursor: "pointer",
-          outline: "none",
+          outline: "none"
         }}
       >
         {locales.map((item) => (
