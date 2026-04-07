@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -35,17 +35,13 @@ export default async function LocaleLayout({ params, children }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          <div style={{ position: "fixed", top: "16px", right: "16px", zIndex: 1000 }}>
-            <LanguageSwitcher />
-          </div>
-          <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
-            {children}
-          </main>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <div style={{ position: "fixed", top: "16px", right: "16px", zIndex: 1000 }}>
+        <LanguageSwitcher />
+      </div>
+      <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+        {children}
+      </main>
+    </NextIntlClientProvider>
   );
 }
