@@ -1,22 +1,21 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import { deleteTransaction } from "@/app/actions";
 import { useTranslations } from "next-intl";
 import { normalizeCategory } from "@/lib/categories";
 
-interface Transaction {
+interface TransactionListItem {
   id: string;
   type: string;
   amount: number;
   category: string;
   title: string;
-  date: Date;
+  formattedDate: string;
 }
 
 interface TransactionListProps {
-  transactions: Transaction[];
-  formatDate: (date: Date) => string;
+  transactions: TransactionListItem[];
   locale: string;
 }
 
@@ -28,7 +27,7 @@ function formatAmount(amount: number, type: string, locale: string): string {
   return type === "income" ? `+¥${numeric}` : `-¥${numeric}`;
 }
 
-export default function TransactionList({ transactions, formatDate, locale }: TransactionListProps) {
+export default function TransactionList({ transactions, locale }: TransactionListProps) {
   const t = useTranslations("home");
 
   async function handleDelete(id: string) {
@@ -52,7 +51,7 @@ export default function TransactionList({ transactions, formatDate, locale }: Tr
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "20px",
-                border: "1px solid var(--border-glass)",
+                border: "1px solid var(--border-glass)"
               }}
             >
               {transaction.type === "expense" ? "−" : "+"}
@@ -60,7 +59,7 @@ export default function TransactionList({ transactions, formatDate, locale }: Tr
             <div className="transaction-info">
               <h4 style={{ fontSize: "16px", marginBottom: "4px" }}>{transaction.title}</h4>
               <p style={{ opacity: 0.8 }}>
-                {t(`categories.${normalizeCategory(transaction.category)}`)} · {formatDate(new Date(transaction.date))}
+                {t(`categories.${normalizeCategory(transaction.category)}`)} · {transaction.formattedDate}
               </p>
             </div>
           </div>
@@ -78,7 +77,7 @@ export default function TransactionList({ transactions, formatDate, locale }: Tr
                 fontSize: "18px",
                 padding: "4px",
                 opacity: 0.6,
-                transition: "opacity 0.2s",
+                transition: "opacity 0.2s"
               }}
               onMouseEnter={(event) => {
                 event.currentTarget.style.opacity = "1";

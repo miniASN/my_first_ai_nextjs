@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { prisma } from "@/lib/prisma";
 import AddRecordModalClient from "@/components/AddRecordModalClient";
 import TransactionList from "@/components/TransactionList";
@@ -92,6 +92,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     error = toErrorMessage(caughtError);
   }
 
+  const transactionItems = transactions.map((transaction) => ({
+    id: transaction.id,
+    type: transaction.type,
+    amount: transaction.amount,
+    category: transaction.category,
+    title: transaction.title,
+    formattedDate: formatDate(new Date(transaction.date), t, locale)
+  }));
+
   return (
     <>
       <header className="top-nav">
@@ -138,8 +147,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="title" style={{ marginBottom: "24px", fontSize: "20px" }}>{t("recentDetails")}</div>
         {error ? (
           <div style={{ color: "var(--danger)", padding: "20px" }}>{t("error")}: {error}</div>
-        ) : transactions.length > 0 ? (
-          <TransactionList transactions={transactions} locale={locale} formatDate={(date) => formatDate(date, t, locale)} />
+        ) : transactionItems.length > 0 ? (
+          <TransactionList transactions={transactionItems} locale={locale} />
         ) : (
           <div style={{ textAlign: "center", padding: "48px 0", color: "var(--text-muted)" }}>
             <div style={{ fontSize: "48px", marginBottom: "16px" }}>◎</div>
